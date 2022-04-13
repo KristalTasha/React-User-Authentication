@@ -1,24 +1,39 @@
-import logo from './logo.svg';
+import { Routes, Route } from 'react-router-dom'
+import { useState } from 'react';
+import Admin from './pages/admin';
+import Analytics from './pages/analytics';
+import Dashboard from './pages/dashboard';
+import Home from './pages/home';
+import Landing from './pages/landing';
+import Navigation from './pages/navigation';
 import './App.css';
 
 function App() {
+  const [user, setUser] = useState()
+
+  const login = () => setUser({id: '1', name: 'aziz'});
+  const logout = () => setUser(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>React Router</h1>
+
+      <Navigation />
+
+      {
+        user ? <button onClick={logout}>Logout</button> : <button onClick={login}>Login</button> 
+      }
+
+      <Routes>
+        <Route index element={<Landing />} />
+        <Route path="landing" element={<Landing />} />
+        <Route path="home" element={<Home />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="analytics" element={<Analytics />} />
+        <Route path="admin" element={<Admin />} />
+        <Route path="*" element={<p>There's nothing here: 404!</p>} />
+      </Routes>
+    </>
   );
 }
 
