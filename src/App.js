@@ -5,11 +5,12 @@ import Analytics from './pages/analytics';
 import Dashboard from './pages/dashboard';
 import Home from './pages/home';
 import Landing from './pages/landing';
+import { ProtectedRoute } from './auth/protectedRoute';
 import Navigation from './pages/navigation';
 import './App.css';
 
 function App() {
-  const [user, setUser] = useState()
+  const [user, setUser] = useState(null)
 
   const login = () => setUser({id: '1', name: 'aziz'});
   const logout = () => setUser(null);
@@ -27,7 +28,10 @@ function App() {
       <Routes>
         <Route index element={<Landing />} />
         <Route path="landing" element={<Landing />} />
-        <Route path="home" element={<Home />} />
+        <Route element={<ProtectedRoute user={user}/>}>
+            <Route path="home" element={<Home />} />
+            <Route path="dashboard" element={<Dashboard />} />
+        </Route>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="analytics" element={<Analytics />} />
         <Route path="admin" element={<Admin />} />

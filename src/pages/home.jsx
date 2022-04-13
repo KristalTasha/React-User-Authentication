@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function Home() {
-  return (
-    <h2>Home (Protected: authenticated user required)</h2>
-  )
+export default function Home({user}) {
+
+   return <h2>Home (Protected: authenticated user required)</h2>
+  
 }
